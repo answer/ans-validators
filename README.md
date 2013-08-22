@@ -4,6 +4,10 @@
 
 * confirmation_of : confirmation というバリデーションは用意されているが、それでは満足できない人向け
 
+注) この gem のクラスは Ans::Validators モジュールではなく、トップレベルにクラスを定義しています  
+バリデーション指定時にめんどくさいから  
+アプリケーションに同じクラスが存在する場合、この gem のクラスが優先されてしまうので、 config の設定でそのクラスを無効にしてください
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -35,6 +39,20 @@ confirmation というバリデーションは用意されています
 
 メッセージが指定できるのでは？ → フォームごとにエラーを表示したかったので。  
 confirmation バリデーションのエラーだと、メッセージの内容で表示する位置を変えなければなりません
+
+## 設定
+
+以下のようにすることで、特定の validator クラスを読み込まなくします
+
+    # config/initializers/ans-validators.rb
+    Ans::Validators.configure do |config|
+
+      # confirmation_of を無効化
+      config.validators[:confirmation_of] = false
+
+    end
+
+アプリケーションに同じ名前のクラスがある場合にこの gem のクラスを無効にする設定です
 
 ## Contributing
 
